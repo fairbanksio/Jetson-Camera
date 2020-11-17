@@ -1,9 +1,3 @@
-# Jetson Camera
-#
-# Usage: sudo systemctl restart nvargus-daemon && clear && python3 Jetson/jetson-cam/main.py
-#
-# Why restart the daemon everytime? Background: https://forums.developer.nvidia.com/t/nvarguscamerasrc-plugin-error/75814/14
-
 import cv2
 import time
 import threading
