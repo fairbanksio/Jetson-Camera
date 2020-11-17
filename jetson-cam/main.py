@@ -34,7 +34,7 @@ def captureFrames():
             video_frame = frame.copy()
         
         for (x_pos, y_pos, width, height) in detected:
-            cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 0), 2)
+            cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
 
         key = cv2.waitKey(30) & 0xff
         if key == 27:
