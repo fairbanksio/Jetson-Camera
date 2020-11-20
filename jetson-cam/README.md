@@ -11,9 +11,9 @@ Why restart the daemon every time? [More Background](https://forums.developer.nv
 
 - [ ] Properly close the stream
 - [x] Face/Person Detection
-- [ ] Improve Detection FPS
+- [x] Improve Detection FPS
 - [ ] PTZ Support
-- [ ] Notifications
+- [x] Notifications
 
 ## Resources
 - Video Capture
