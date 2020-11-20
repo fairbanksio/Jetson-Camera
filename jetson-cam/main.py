@@ -51,8 +51,10 @@ def detectMotion():
         if any(map(len, detected)):
             now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
             print(f"[{now}] Motion Detected")
-        for (x_pos, y_pos, width, height) in detected:
-            cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
+        
+        #if args.debug:
+        #    for (x_pos, y_pos, width, height) in detected:
+        #        cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
         
 def encodeFrame():
     global thread_lock
