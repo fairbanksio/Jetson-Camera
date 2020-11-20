@@ -1,8 +1,24 @@
+import argparse
 import cv2
 from datetime import datetime
+from notifications import post_message_to_slack
+from notifications import post_file_to_slack
+import os
+import socket
 import time
 import threading
 from flask import Response, Flask
+import urllib.request
+
+__version__ = "1.0.3"
+
+parser = argparse.ArgumentParser(description='Ring cameras suck sooo, Jeston Camera!')
+parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
+parser.add_argument("-v", "--version", help="Current Jetson Camera version.", action="store_true")
+parser.add_argument('--slack-token', help="Slack bot token to be used for notifications")
+parser.add_argument('--port', help="Web Port", default='8000')
+args = parser.parse_args()
+
 
 global video_frame
 video_frame = None
@@ -14,7 +30,6 @@ HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_frontalface
 #HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_upperbody.xml"
 #HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_fullbody.xml"
 
-#GSTREAMER_PIPELINE = 'nvarguscamerasrc ! video/x-raw(memory:NVMM), width=1920, height=1080, format=(string)NV12, framerate=30/1 ! nvvidconv flip-method=2 ! video/x-raw, format=(string)BGRx ! videoconvert ! appsink'
 GSTREAMER_PIPELINE = 'nvarguscamerasrc ! video/x-raw(memory:NVMM), width=3264, height=1848, format=(string)NV12, framerate=28/1 ! nvvidconv flip-method=2 ! video/x-raw, width=1680, height=1050, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink wait-on-eos=false max-buffers=1 drop=True'
 
 app = Flask(__name__)
@@ -48,14 +63,38 @@ def detectMotion():
         grayscale_image = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
         detected = cascade.detectMultiScale(grayscale_image, 1.3, 5)
 
+        # There's a person in the image
         if any(map(len, detected)):
-            now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-            print(f"[{now}] Motion Detected")
+            # Figure out the timestamp
+            date = datetime.now().strftime("%m/%d/%Y")
+            time = datetime.now().strftime("%H:%M:%S")
+
+            print(f"[{date}] Motion Detected @ {time}")
+
+            # Save the image           
+            filename = 'motion-{}.jpg'.format(datetime.now().strftime("%m%d%Y%H%M%S"))
+            cv2.imwrite(filename, video_frame)
+            cv2.waitKey(0)
+
+            # If there's a Slack token, send a message
+            if args.slack_token:
+                #msg = '*[{}]*  Motion detected @ *{}*. Please check the <http://{}:8000/|Jetson Camera>!'.format(date, time, socket.gethostname())
+                #post_message_to_slack(msg, args)
+
+                with open(filename, "rb") as image:
+                    file = image.read()
+                    data = bytearray(file)
+
+                post_file_to_slack(
+                    ':warning: Motion was detected on the Jetson Camera :warning:',
+                    args,
+                    filename,
+                    data)
         
-        #if args.debug:
-        #    for (x_pos, y_pos, width, height) in detected:
-        #        cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
-        
+        if args.debug:
+            for (x_pos, y_pos, width, height) in detected:
+                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)    
+
 def encodeFrame():
     global thread_lock
     while True:
@@ -74,13 +113,20 @@ def streamFrames():
     return Response(encodeFrame(), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
 if __name__ == '__main__':
-    process_thread = threading.Thread(target=captureFrames)
-    process_thread.daemon = True
+    try:
+        process_thread = threading.Thread(target=captureFrames)
+        process_thread.daemon = True
 
-    detect_thread = threading.Thread(target=detectMotion)
-    detect_thread.daemon = True
+        detect_thread = threading.Thread(target=detectMotion)
+        detect_thread.daemon = True
 
-    process_thread.start()
-    detect_thread.start()
+        process_thread.start()
+        detect_thread.start()
 
-    app.run("0.0.0.0", port="8000")
+        app.run("0.0.0.0", port=args.port)
+    except KeyboardInterrupt:
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)
+

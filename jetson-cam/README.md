@@ -13,7 +13,7 @@ Why restart the daemon every time? [More Background](https://forums.developer.nv
 - [x] Face/Person Detection
 - [x] Improve Detection FPS
 - [ ] PTZ Support
-- [ ] Notifications
+- [x] Notifications
 
 ## Resources
 - Video Capture
