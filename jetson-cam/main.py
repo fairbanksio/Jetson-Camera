@@ -16,15 +16,19 @@ parser = argparse.ArgumentParser(description='Ring cameras suck sooo, Jeston Cam
 parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
 parser.add_argument("-v", "--version", help="Current Jetson Camera version.", action="store_true")
 parser.add_argument('--slack-token', help="Slack bot token to be used for notifications")
+parser.add_argument('--notification-delay', help="Interval in seconds between notifications", default=60)
+parser.add_argument('--disable-motion', help="Disable motion detection", action="store_true")
 parser.add_argument('--port', help="Web Port", default='8000')
 args = parser.parse_args()
-
 
 global video_frame
 video_frame = None
 
 global thread_lock 
 thread_lock = threading.Lock()
+
+global last_notify_time
+last_notify_time = datetime.now()
 
 HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml"
 #HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_upperbody.xml"
@@ -52,7 +56,7 @@ def captureFrames():
     video_capture.release()
 
 def detectMotion():
-    global video_frame
+    global video_frame, last_notify_time
     cascade = cv2.CascadeClassifier(HAAR_CASCADE_XML_FILE)
     while True:
         global video_frame
@@ -68,6 +72,8 @@ def detectMotion():
             # Figure out the timestamp
             date = datetime.now().strftime("%m/%d/%Y")
             time = datetime.now().strftime("%H:%M:%S")
+            now = datetime.now()
+            seconds_since_notified = (now - last_notify_time).total_seconds()
 
             print(f"[{date}] Motion Detected @ {time}")
 
@@ -78,18 +84,26 @@ def detectMotion():
 
             # If there's a Slack token, send a message
             if args.slack_token:
-                #msg = '*[{}]*  Motion detected @ *{}*. Please check the <http://{}:8000/|Jetson Camera>!'.format(date, time, socket.gethostname())
-                #post_message_to_slack(msg, args)
+                if (seconds_since_notified > args.notification_delay):
+                    try:
+                        with open(filename, "rb") as image:
+                            file = image.read()
+                            data = bytearray(file)
 
-                with open(filename, "rb") as image:
-                    file = image.read()
-                    data = bytearray(file)
-
-                post_file_to_slack(
-                    ':warning: Motion was detected on the Jetson Camera :warning:',
-                    args,
-                    filename,
-                    data)
+                        post_file_to_slack(
+                            ':warning: Motion was detected on the Jetson Camera :warning:',
+                            args,
+                            filename,
+                            data)
+                        
+                        last_notify_time = datetime.now()
+                        print(f"Successfully posted notification to Slack: {last_notify_time}")
+                    except Exception as e:
+                        print(f"Failed to post a notification message: {e}" )
+                        continue
+                else:
+                    if args.debug:
+                        print(f"Skipping notification for {args.notification_delay} seconds, we just sent one {seconds_since_notified} seconds ago...")
         
         if args.debug:
             for (x_pos, y_pos, width, height) in detected:
@@ -113,6 +127,15 @@ def streamFrames():
     return Response(encodeFrame(), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
 if __name__ == '__main__':
+    if args.version:
+        print(f"Jetson-Camera Version: {__version__}")
+
+    if args.slack_token:
+        print("\n\n** Slack Notifications: ENABLED **\n\n")
+
+    if args.debug:
+        print("\n\n** Debug Mode: ENABLED **\n\n")
+
     try:
         process_thread = threading.Thread(target=captureFrames)
         process_thread.daemon = True
