@@ -5,14 +5,12 @@ Ring cameras suck, so I'ma make my own
 ## Usage
 `python3 Jetson/jetson-cam/main.py`
 
-If you are testing and get an `Failed to start CaptureSession` error, restart the nvargus-daemon and retry:
+If you are testing and get a *Failed to start CaptureSession* error, restart the nvargus-daemon and retry:
 `sudo systemctl restart nvargus-daemon`
-
-Why restart the daemon every time? [More Background](https://forums.developer.nvidia.com/t/nvarguscamerasrc-plugin-error/75814/14)
 
 ## To Do
 
-- [x] Properly close the stream
+- [ ] Properly close the stream
 - [x] Face/Person Detection
 - [x] Improve Detection FPS
 - [ ] PTZ Support

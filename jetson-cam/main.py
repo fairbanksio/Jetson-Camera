@@ -67,6 +67,10 @@ def detectMotion():
         grayscale_image = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
         detected = cascade.detectMultiScale(grayscale_image, 1.3, 5)
 
+        if args.debug:
+            for (x_pos, y_pos, width, height) in detected:
+                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
+
         # There's a person in the image
         if any(map(len, detected)):
             # Figure out the timestamp
@@ -105,9 +109,7 @@ def detectMotion():
                     if args.debug:
                         print(f"Skipping notification for {args.notification_delay} seconds, we just sent one {seconds_since_notified} seconds ago...")
         
-        if args.debug:
-            for (x_pos, y_pos, width, height) in detected:
-                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)    
+            
 
 def encodeFrame():
     global thread_lock
