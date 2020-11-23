@@ -12,6 +12,10 @@ Basic start-up:
 
 `python3 Jetson/jetson-cam/main.py`
 
+Advanced start-up:
+
+`python3 Jetson/jetson-cam/main.py --slack-token <MY SLACK TOKEN> --ptz-test --debug`
+
 If you are testing and get a *Failed to start CaptureSession* error, restart the nvargus-daemon and retry:
 
 `sudo systemctl restart nvargus-daemon`
@@ -26,6 +30,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 - [2 x Tower Pro SG92R Servos](https://smile.amazon.com/TowerPro-SG92R-Micro-Servo-pack/dp/B01CX63AOQ/)
 - [Female-to-Female Jumper Wires](https://smile.amazon.com/gp/product/B01L5ULRUA)
 - [5v Power Adapter](https://smile.amazon.com/BOLWEO-Universal-Connector-Household-Electronic/dp/B07QNTF9G8)
+- Optional: [5v Fan](https://smile.amazon.com/dp/B07DXS86G7)
 
 
 ### Resources
@@ -42,7 +47,6 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
     - Backdoor Access: https://www.eff.org/deeplinks/2020/11/police-will-pilot-program-live-stream-amazon-ring-cameras
     - 3rd Party Data Sharing: https://www.latimes.com/business/technology/story/2020-01-29/ring-app-shares-personal-data-eff-finds
     
-
 
 ### To Do
 
