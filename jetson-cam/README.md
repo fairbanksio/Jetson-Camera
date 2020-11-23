@@ -26,6 +26,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 - [2 x Tower Pro SG92R Servos](https://smile.amazon.com/TowerPro-SG92R-Micro-Servo-pack/dp/B01CX63AOQ/)
 - [Female-to-Female Jumper Wires](https://smile.amazon.com/gp/product/B01L5ULRUA)
 - [5v Power Adapter](https://smile.amazon.com/BOLWEO-Universal-Connector-Household-Electronic/dp/B07QNTF9G8)
+- Optional: [5v Fan](https://smile.amazon.com/dp/B07DXS86G7)
 
 
 ### Resources
