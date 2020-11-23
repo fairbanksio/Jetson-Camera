@@ -4,8 +4,7 @@ from datetime import datetime
 from notifications import post_message_to_slack
 from notifications import post_file_to_slack
 import os
-from pantilt import pan_sweep
-from pantilt import tilt_sweep
+from pantilt import ptz_demo
 import time
 import threading
 from flask import Response, Flask
@@ -18,6 +17,7 @@ parser.add_argument("-v", "--version", help="Current Jetson Camera version.", ac
 parser.add_argument('--slack-token', help="Slack bot token to be used for notifications")
 parser.add_argument('--notification-delay', help="Interval in seconds between notifications", default=60)
 parser.add_argument('--disable-motion', help="Disable motion detection", action="store_true")
+parser.add_argument('--ptz-test', help="Verify PTZ functionality and range", action="store_true")
 parser.add_argument('--port', help="Web Port", default='8000')
 args = parser.parse_args()
 
@@ -136,7 +136,15 @@ if __name__ == '__main__':
     if args.debug:
         print("\n\n** Debug Mode: ENABLED **\n\n")
 
+    if args.ptz_test:
+        print("\n\n** PTZ Test: ENABLED **\n\n")
+
     try:
+        if args.ptz_test:
+            ptz_thread = threading.Thread(target=ptz_demo)
+            ptz_thread.daemon = True
+            ptz_thread.start()
+
         process_thread = threading.Thread(target=captureFrames)
         process_thread.daemon = True
 

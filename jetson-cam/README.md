@@ -15,6 +15,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 - [x] Improve Detection FPS
 - [ ] PTZ Support
 - [x] Notifications
+- [ ] Refactor
 
 ## Resources
 - Video Capture
