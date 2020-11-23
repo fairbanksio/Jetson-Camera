@@ -1,10 +1,12 @@
 # Jetson Camera
 
-![jetson-camera](https://assets.mofoprod.net/network/images/ring_banner.original.png)
+[![jetson-camera](https://assets.mofoprod.net/network/images/ring_banner.original.png)](https://www.eff.org/deeplinks/2020/02/what-know-you-buy-or-install-your-amazon-ring-camera)
 
 ### Ring cameras suck, so I'ma make my own
 
 #### Usage
+
+Basic start-up:
 
 `python3 Jetson/jetson-cam/main.py`
 
@@ -32,6 +34,11 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
     - ServoKit docs: https://circuitpython.readthedocs.io/projects/servokit/en/latest/api.html
 - Notifications
     - Slack Block Kit Builder: https://app.slack.com/block-kit-builder
+- What's wrong with Ring?
+    - EFF What to Know: https://www.eff.org/deeplinks/2020/02/what-know-you-buy-or-install-your-amazon-ring-camera
+    - Backdoor Access: https://www.eff.org/deeplinks/2020/11/police-will-pilot-program-live-stream-amazon-ring-cameras
+    - 3rd Party Data Sharing: https://www.latimes.com/business/technology/story/2020-01-29/ring-app-shares-personal-data-eff-finds
+    
 
 
 #### To Do
