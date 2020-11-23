@@ -4,6 +4,8 @@
 
 ### Ring cameras suck, so I'ma make my own
 
+<hr>
+
 #### Usage
 
 Basic start-up:
