@@ -4,13 +4,13 @@ from datetime import datetime
 from notifications import post_message_to_slack
 from notifications import post_file_to_slack
 import os
-import socket
+from pantilt import pan_sweep
+from pantilt import tilt_sweep
 import time
 import threading
 from flask import Response, Flask
-import urllib.request
 
-__version__ = "1.0.3"
+__version__ = "1.0.5"
 
 parser = argparse.ArgumentParser(description='Ring cameras suck sooo, Jeston Camera!')
 parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
@@ -67,6 +67,10 @@ def detectMotion():
         grayscale_image = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
         detected = cascade.detectMultiScale(grayscale_image, 1.3, 5)
 
+        if args.debug:
+            for (x_pos, y_pos, width, height) in detected:
+                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
+
         # There's a person in the image
         if any(map(len, detected)):
             # Figure out the timestamp
@@ -104,10 +108,6 @@ def detectMotion():
                 else:
                     if args.debug:
                         print(f"Skipping notification for {args.notification_delay} seconds, we just sent one {seconds_since_notified} seconds ago...")
-        
-        if args.debug:
-            for (x_pos, y_pos, width, height) in detected:
-                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)    
 
 def encodeFrame():
     global thread_lock
