@@ -18,10 +18,7 @@ parser.add_argument('--notification-delay', help="Interval in seconds between no
 parser.add_argument('--disable-motion', help="Disable motion detection", action="store_true")
 parser.add_argument('--ptz-test', help="Verify PTZ functionality and range", action="store_true")
 parser.add_argument('--port', help="Web Port", default='8000')
-args = parser.parse_args()
-
-if args.ptz_test:
-    from pantilt import ptz_demo
+args = parser.parse_args() 
 
 global video_frame
 video_frame = None
@@ -135,19 +132,20 @@ def streamFrames():
 
 if __name__ == '__main__':
     if args.version:
-        print(f"Jetson-Camera Version: {__version__}")
+        print(f"Version: {__version__}")
 
     if args.slack_token:
-        print("\n\n** Slack Notifications: ENABLED **\n\n")
+        print("\n** Slack Notifications: ENABLED **\n")
 
     if args.debug:
-        print("\n\n** Debug Mode: ENABLED **\n\n")
+        print("\n** Debug Mode: ENABLED **\n")
 
     if args.ptz_test:
-        print("\n\n** PTZ Test: ENABLED **\n\n")
+        print("\n** PTZ Test: ENABLED **\n")
 
     try:
         if args.ptz_test:
+            from pantilt import ptz_demo
             ptz_thread = threading.Thread(target=ptz_demo)
             ptz_thread.daemon = True
             ptz_thread.start()
