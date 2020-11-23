@@ -6,7 +6,7 @@
 
 <hr>
 
-#### Usage
+### Usage
 
 Basic start-up:
 
@@ -17,7 +17,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 `sudo systemctl restart nvargus-daemon`
 
 
-#### Hardware
+### Hardware
 
 - [Jetson Nano 2GB Developer Kit](https://smile.amazon.com/NVIDIA-Jetson-Nano-2GB-Developer/dp/B08J157LHH)
 - Anker [USB C Power Adapter](https://smile.amazon.com/gp/product/B0828WB2VR) & [Power Cable](https://smile.amazon.com/gp/product/B0832M47KX)
@@ -27,7 +27,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 - [Female-to-Female Jumper Wires](https://smile.amazon.com/gp/product/B01L5ULRUA)
 
 
-#### Resources
+### Resources
 
 - Video Capture
     - OpenCV Video: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html
@@ -43,7 +43,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
     
 
 
-#### To Do
+### To Do
 
 - [ ] Properly close the stream
 - [x] Face/Person Detection
