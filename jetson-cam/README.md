@@ -43,7 +43,6 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
     - 3rd Party Data Sharing: https://www.latimes.com/business/technology/story/2020-01-29/ring-app-shares-personal-data-eff-finds
     
 
-
 ### To Do
 
 - [ ] Properly close the stream
