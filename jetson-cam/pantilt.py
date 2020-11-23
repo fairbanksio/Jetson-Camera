@@ -28,11 +28,11 @@ def pan_sweep(min=pan_min, max=pan_max):
         for i in range(pan_minmax,-1,-min):
             pan.angle = i
             pan_current = i
-            time.sleep(0.055)
+            time.sleep(0.045)
         for i in range(max+1):
             pan.angle = i
             pan_current = i
-            time.sleep(0.055)
+            time.sleep(0.045)
 
 def tilt_sweep(min=tilt_min, max=tilt_max):
     while True:
@@ -40,11 +40,11 @@ def tilt_sweep(min=tilt_min, max=tilt_max):
         for i in range(tilt_minmax,-1,-min):
             tilt.angle = i
             tilt_current = i
-            time.sleep(0.02)
+            time.sleep(0.015)
         for i in range(max+1):
             tilt.angle = i
             tilt_current = i
-            time.sleep(0.02)
+            time.sleep(0.015)
 
 def ptz_demo():  
     panProc = Process(target=pan_sweep)

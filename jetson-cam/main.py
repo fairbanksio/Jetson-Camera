@@ -4,7 +4,6 @@ from datetime import datetime
 from notifications import post_message_to_slack
 from notifications import post_file_to_slack
 import os
-from pantilt import ptz_demo
 import time
 import threading
 from flask import Response, Flask
@@ -20,6 +19,9 @@ parser.add_argument('--disable-motion', help="Disable motion detection", action=
 parser.add_argument('--ptz-test', help="Verify PTZ functionality and range", action="store_true")
 parser.add_argument('--port', help="Web Port", default='8000')
 args = parser.parse_args()
+
+if args.ptz_test:
+    from pantilt import ptz_demo
 
 global video_frame
 video_frame = None
@@ -70,16 +72,16 @@ def detectMotion():
         if args.debug:
             for (x_pos, y_pos, width, height) in detected:
                 cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
-
+        
+        # Figure out the timestamp
+        date = datetime.now().strftime("%m/%d/%Y")
+        time = datetime.now().strftime("%H:%M:%S")
+        
         # There's a person in the image
         if any(map(len, detected)):
-            # Figure out the timestamp
-            date = datetime.now().strftime("%m/%d/%Y")
-            time = datetime.now().strftime("%H:%M:%S")
-            now = datetime.now()
-            seconds_since_notified = (now - last_notify_time).total_seconds()
-
-            print(f"[{date}] Motion Detected @ {time}")
+            someone_here = True
+            if args.debug:
+                print(f"[{time}] Motion Detected")
 
             # Save the image           
             filename = 'motion-{}.jpg'.format(datetime.now().strftime("%m%d%Y%H%M%S"))
@@ -88,6 +90,7 @@ def detectMotion():
 
             # If there's a Slack token, send a message
             if args.slack_token:
+                seconds_since_notified = (datetime.now() - last_notify_time).total_seconds()
                 if (seconds_since_notified > args.notification_delay):
                     try:
                         with open(filename, "rb") as image:
@@ -108,6 +111,10 @@ def detectMotion():
                 else:
                     if args.debug:
                         print(f"Skipping notification for {args.notification_delay} seconds, we just sent one {seconds_since_notified} seconds ago...")
+        else:
+            someone_here = False
+            if args.debug:
+                print(f"[{time}] ...............")
 
 def encodeFrame():
     global thread_lock
