@@ -2,17 +2,18 @@
 
 ![jetson-camera](https://assets.mofoprod.net/network/images/ring_banner.original.png)
 
-## Ring cameras suck, so I'ma make my own
+### Ring cameras suck, so I'ma make my own
 
-### Usage
+#### Usage
 
 `python3 Jetson/jetson-cam/main.py`
 
 If you are testing and get a *Failed to start CaptureSession* error, restart the nvargus-daemon and retry:
+
 `sudo systemctl restart nvargus-daemon`
 
 
-### Hardware
+#### Hardware
 
 - [Jetson Nano 2GB Developer Kit](https://smile.amazon.com/NVIDIA-Jetson-Nano-2GB-Developer/dp/B08J157LHH)
 - Anker [USB C Power Adapter](https://smile.amazon.com/gp/product/B0828WB2VR) & [Power Cable](https://smile.amazon.com/gp/product/B0832M47KX)
@@ -22,7 +23,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 - [Female-to-Female Jumper Wires](https://smile.amazon.com/gp/product/B01L5ULRUA)
 
 
-### Resources
+#### Resources
 
 - Video Capture
     - OpenCV Video: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html
@@ -33,7 +34,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
     - Slack Block Kit Builder: https://app.slack.com/block-kit-builder
 
 
-### To Do
+#### To Do
 
 - [ ] Properly close the stream
 - [x] Face/Person Detection
