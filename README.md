@@ -4,3 +4,4 @@
 
 Code related to the [Nvidia Jetson Nano](https://developer.nvidia.com/embedded/jetson-nano-2gb-developer-kit) development board
 
+- [Jetson Camera](https://github.com/Fairbanks-io/Jetson/tree/main/jetson-cam)
