@@ -11,4 +11,5 @@
 - [Recommended Hardware](resources/documentation/HARDWARE.md)
 - [Servo Wiring](resources/documentation/WIRING.md)
 - [Initial Setup & Usage](resources/documentation/USAGE.md)
+- [Troubleshooting](resources/documentation/TROUBLESHOOTING.md)
 - [To-Do List](resources/documentation/TODO.md)
