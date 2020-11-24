@@ -8,11 +8,12 @@
 
 ### Wiring
 
-**Jetson Pins**  ->  **Servo Driver Pins**
-J41 Pin 3 (SDA)  ->  PCA9685 SDA
-J41 Pin 5 (SCL)  ->  PCA9685 SCL
-J41 Pin 1 (3.3V) ->  PCA9685 VCC
-J41 Pin 6 (GND)  ->  PCA9685 GND
+| Jetson Pins (J41) | Servo Driver Pins (PCA9685) |
+|-------------------|-----------------------------|
+| Pin 3 (SDA)       | SDA                         |
+| Pin 5 (SCL)       | SCL                         |
+| Pin 1 (3.3v)      | VCC                         |
+| Pin 6 (GND)       | GND                         |
 
 It is also recommended to use a separate [5v adapter](https://smile.amazon.com/BOLWEO-Universal-Connector-Household-Electronic/dp/B07QNTF9G8) to provide additional power for the servos. Pulling power from the Jetson itself can work for simple testing but heavier loads can damage the board. TLDR: Use a 5v adapter to power servos.
 
