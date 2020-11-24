@@ -6,7 +6,7 @@
 
 <hr>
 
-### Wiring
+### Servo Wiring
 
 | Jetson Pins (J41) | Servo Driver Pins (PCA9685) |
 |-------------------|-----------------------------|
