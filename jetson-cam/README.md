@@ -8,7 +8,7 @@
 
 ### Servo Wiring
 
-![jetson-pinout](https://raw.githubusercontent.com/Fairbanks-io/Jetson/main/resources/images/pinout.png)
+<img src="https://raw.githubusercontent.com/Fairbanks-io/Jetson/main/resources/images/pinout.png" width="50%" height="50%" />
 
 | Jetson Pins (J41) | Servo Driver Pins (PCA9685) |
 |-------------------|-----------------------------|
