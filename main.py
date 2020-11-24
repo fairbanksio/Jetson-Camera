@@ -10,7 +10,7 @@ from flask import Response, Flask
 
 __version__ = "1.0.5"
 
-parser = argparse.ArgumentParser(description='Ring cameras suck sooo, Jeston Camera!')
+parser = argparse.ArgumentParser(description='Ring cameras suck, so I\'ma make my own')
 parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
 parser.add_argument("-v", "--version", help="Current Jetson Camera version.", action="store_true")
 parser.add_argument('--slack-token', help="Slack bot token to be used for notifications")
