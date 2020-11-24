@@ -1,6 +1,6 @@
 # Jetson Camera
 
-[![jetson-camera](https://assets.mofoprod.net/network/images/ring_banner.original.png)](https://www.eff.org/deeplinks/2020/02/what-know-you-buy-or-install-your-amazon-ring-camera)
+[![jetson-camera](resources/images/banner.png)](https://www.eff.org/deeplinks/2020/02/what-know-you-buy-or-install-your-amazon-ring-camera)
 
 ### Ring cameras suck, so I'ma make my own
 
