@@ -1,10 +1,10 @@
-### Configuration
+## Configuration
 
 Jetson Camera currently supports a few different features gated behind command line arguments.
 
 
 
-#### Debug Mode
+### Debug Mode
 
 `python3 Jetson/jetson-cam/main.py --debug`
 
@@ -12,7 +12,7 @@ Debug mode prints additional log items to console AND draws red bounding boxes a
 
 
 
-#### Slack Notifications
+### Slack Notifications
 
 `python3 Jetson/jetson-cam/main.py --slack-token <SLACK BOT TOKEN>`
 
@@ -22,7 +22,7 @@ To prevent notification flood, there is currently a 60s delay between motion not
 
 
 
-#### PTZ Support
+### PTZ Support
 
 **This feature is in active development**
 
@@ -32,7 +32,7 @@ Used to verify functionality of I2C communication and servos.
 
 
 
-#### Disabling Motion Detection
+### Disabling Motion Detection
 
 `python3 Jetson/jetson-cam/main.py --disable-motion`
 
@@ -40,7 +40,7 @@ Video steam only. Can be used if you do not want motion detection enabled.
 
 
 
-#### Override Web Port
+### Override Web Port
 
 `python3 Jetson/jetson-cam/main.py --port 8080`
 

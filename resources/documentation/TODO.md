@@ -1,4 +1,4 @@
-### To Do
+## To Do
 
 - [ ] [Properly close the stream](https://forums.developer.nvidia.com/t/error-generated-gstnvarguscamerasrc-cpp-execute-543-failed-to-create-capturesession/112431/4)
 - [x] Face/Person Detection

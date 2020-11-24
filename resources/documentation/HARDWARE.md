@@ -1,4 +1,4 @@
-### Recommended Hardware
+## Recommended Hardware
 
 - [Jetson Nano 2GB Developer Kit](https://smile.amazon.com/NVIDIA-Jetson-Nano-2GB-Developer/dp/B08J157LHH)
 - Anker [USB C Power Adapter](https://smile.amazon.com/gp/product/B0828WB2VR) & [Power Cable](https://smile.amazon.com/gp/product/B0832M47KX)
