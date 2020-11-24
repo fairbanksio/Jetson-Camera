@@ -17,7 +17,7 @@ parser.add_argument("--slack-token", help="Slack bot token to be used for notifi
 parser.add_argument("--notification-delay", help="Interval in seconds between notifications", default=60)
 parser.add_argument("--disable-motion", help="Disable motion detection", action="store_true")
 parser.add_argument("--ptz-test", help="Verify PTZ functionality and range", action="store_true")
-parser.add_argument("--port", help="Web Port", default="8000")
+parser.add_argument("--port", help="Web Port", default=8000)
 args = parser.parse_args() 
 
 global video_frame
