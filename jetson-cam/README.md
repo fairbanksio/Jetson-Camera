@@ -6,24 +6,24 @@
 
 <hr>
 
-### Wiring
+### Servo Wiring
 
 | Jetson Pins (J41) | Servo Driver Pins (PCA9685) |
 |-------------------|-----------------------------|
-| Pin 3 (SDA)       | SDA                         |
-| Pin 5 (SCL)       | SCL                         |
-| Pin 1 (3.3v)      | VCC                         |
-| Pin 6 (GND)       | GND                         |
+| Pin 3 (SDA)       | SDA (Data)                  |
+| Pin 5 (SCL)       | SCL (Clock)                 |
+| Pin 1 (3.3v)      | VCC (Power)                 |
+| Pin 6 (GND)       | GND (Ground)                |
 
 It is also recommended to use a separate [5v adapter](https://smile.amazon.com/BOLWEO-Universal-Connector-Household-Electronic/dp/B07QNTF9G8) to provide additional power for the servos. Pulling power from the Jetson itself can work for simple testing but heavier loads can damage the board. TLDR: Use a 5v adapter to power servos.
 
 
-### Setup
+### Initial Setup
 
 `pip3 install opencv-python flask imutils adafruit_servokit`
 
 
-### Usage
+### Launch & Usage
 
 Basic start-up:
 
@@ -38,7 +38,7 @@ If you are testing and get a *Failed to start CaptureSession* error, restart the
 `sudo systemctl restart nvargus-daemon`
 
 
-### Hardware
+### Recommended Hardware
 
 - [Jetson Nano 2GB Developer Kit](https://smile.amazon.com/NVIDIA-Jetson-Nano-2GB-Developer/dp/B08J157LHH)
 - Anker [USB C Power Adapter](https://smile.amazon.com/gp/product/B0828WB2VR) & [Power Cable](https://smile.amazon.com/gp/product/B0832M47KX)
