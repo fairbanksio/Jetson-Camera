@@ -6,7 +6,13 @@
 
 <hr>
 
-### Getting Started
+#### Features
+
+- Face/Torso/Person Detection
+- Slack Notifications
+- PTZ Tracking Support
+
+#### Getting Started
 
 - [Recommended Hardware](resources/documentation/HARDWARE.md)
 - [Servo Wiring](resources/documentation/WIRING.md)
