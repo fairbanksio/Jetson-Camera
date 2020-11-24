@@ -8,6 +8,8 @@
 
 ### Servo Wiring
 
+![jetson-pinout](https://raw.githubusercontent.com/Fairbanks-io/Jetson/main/resources/images/pinout.png)
+
 | Jetson Pins (J41) | Servo Driver Pins (PCA9685) |
 |-------------------|-----------------------------|
 | Pin 3 (SDA)       | SDA (Data)                  |
