@@ -8,6 +8,7 @@
 
 #### Features
 
+- Web Streaming
 - Face/Torso/Person Detection
 - Slack Notifications
 - PTZ Tracking Support
