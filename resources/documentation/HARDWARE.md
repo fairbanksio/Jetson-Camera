@@ -1,7 +1,7 @@
 ## Recommended Hardware
 
 #### Version 0
-<img src="https://raw.githubusercontent.com/Fairbanks-io/Jetson/main/resources/images/jetson-camera-v0.jpg" width="50%" height="50%" />
+<img src="https://raw.githubusercontent.com/Fairbanks-io/Jetson/main/resources/images/jetson-camera-v0.jpg" width="60%" height="60%" />
 
 - [Jetson Nano 2GB Developer Kit](https://smile.amazon.com/NVIDIA-Jetson-Nano-2GB-Developer/dp/B08J157LHH)
 - Anker [USB C Power Adapter](https://smile.amazon.com/gp/product/B0828WB2VR) & [Power Cable](https://smile.amazon.com/gp/product/B0832M47KX)
