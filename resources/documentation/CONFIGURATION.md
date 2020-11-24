@@ -2,7 +2,7 @@
 
 ### Jetson Camera currently supports a few different features gated behind command line arguments.
 
-
+<hr>
 
 #### Debug Mode
 
