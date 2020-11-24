@@ -1,7 +1,7 @@
 ## Resources
 
 - **Jetson Nano**
-    - Getting Started: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit
+    - Getting Started: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit
     - Header Pinout: https://www.jetsonhacks.com/nvidia-jetson-nano-j41-header-pinout
 
 - **Video Capture**
