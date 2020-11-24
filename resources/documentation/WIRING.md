@@ -1,4 +1,4 @@
-### Servo Wiring
+## Servo Wiring
 
 <img src="https://raw.githubusercontent.com/Fairbanks-io/Jetson/main/resources/images/pinout.png" width="40%" height="40%" />
 
