@@ -3,6 +3,7 @@
 - **Jetson Nano**
     - Getting Started: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit
     - Header Pinout: https://www.jetsonhacks.com/nvidia-jetson-nano-j41-header-pinout
+    - Jetson Fan Control: https://github.com/Pyrestone/jetson-fan-ctl
 
 - **Video Capture**
     - OpenCV Video: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html
