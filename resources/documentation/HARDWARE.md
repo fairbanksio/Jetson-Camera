@@ -13,3 +13,4 @@
 - [Female-to-Female Jumper Wires](https://smile.amazon.com/gp/product/B01L5ULRUA)
 - [5v Power Adapter](https://smile.amazon.com/BOLWEO-Universal-Connector-Household-Electronic/dp/B07QNTF9G8) - used to power servos; powering them via GPIO is **not** recommended
 - Optional: [40mm PWM Fan](https://smile.amazon.com/dp/B07DXS86G7) - although a fan is not required, Nvidia does recommend this Noctua for the Nano
+- Optional: [40mm Fan Grill](https://smile.amazon.com/gp/product/B00D7IH1OK) - not required unless you have a habit of sticking cables in fans
