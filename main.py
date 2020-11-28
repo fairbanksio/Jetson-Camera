@@ -18,6 +18,7 @@ parser.add_argument("--notification-delay", help="Interval in seconds between no
 parser.add_argument("--disable-motion", help="Disable motion detection", action="store_true")
 parser.add_argument("--ptz-test", help="Verify PTZ functionality and range", action="store_true")
 parser.add_argument("--port", help="Web Port", default=8000)
+parser.add_argument("--save", help="Archive detected motion", action="store_true")
 args = parser.parse_args() 
 
 global video_frame
@@ -89,9 +90,10 @@ def detectMotion():
                 print(f"[{time}] Motion Detected")
 
             # Save the image           
-            filename = 'motion-{}.jpg'.format(datetime.now().strftime("%m%d%Y%H%M%S"))
-            cv2.imwrite(filename, video_frame)
-            cv2.waitKey(0)
+            if args.save:
+                filename = 'motion-{}.jpg'.format(datetime.now().strftime("%m%d%Y%H%M%S"))
+                cv2.imwrite(filename, video_frame)
+                cv2.waitKey(0)
 
             # If there's a Slack token, send a message
             if args.slack_token:
