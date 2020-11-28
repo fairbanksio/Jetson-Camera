@@ -30,6 +30,8 @@ thread_lock = threading.Lock()
 global last_notify_time
 last_notify_time = datetime.now()
 
+global last_detected_location 
+
 HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml"
 #HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_upperbody.xml"
 #HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_fullbody.xml"
@@ -64,7 +66,7 @@ def captureFrames():
     video_capture.release()
 
 def detectMotion():
-    global video_frame, last_notify_time
+    global video_frame, last_notify_time, last_detected_location
     cascade = cv2.CascadeClassifier(HAAR_CASCADE_XML_FILE)
     while True:
         global video_frame
@@ -75,19 +77,33 @@ def detectMotion():
         grayscale_image = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
         detected = cascade.detectMultiScale(grayscale_image, 1.3, 5)
 
-        if args.debug:
-            for (x_pos, y_pos, width, height) in detected:
-                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
-        
         # Figure out the timestamp
         date = datetime.now().strftime("%m/%d/%Y")
         time = datetime.now().strftime("%H:%M:%S")
         
         # There's a person in the image
-        if any(map(len, detected)):
+        for (x_pos, y_pos, width, height) in detected:
             someone_here = True
             if args.debug:
-                print(f"[{time}] Motion Detected")
+                detection_center = (int(x_pos + width / 2), int(y_pos + height / 2))
+                print(f"[{time}] Motion Detected @ {detection_center}")
+                last_detected_location = detection_center
+                radius = 10
+                color = (0, 0, 255)
+                thickness = 2
+                with thread_lock:
+                    cv2.circle(video_frame, detection_center, radius, color, thickness)
+
+            # Move to the detection
+            center_coordinates = (840, 525)
+            move_x = int(center_coordinates[0] - last_detected_location[0])
+            move_y = int(center_coordinates[1] - last_detected_location[1])
+            move_coordinates = (move_x, move_y)
+            print(f"Camera is pointed at {center_coordinates} but needs to be pointed at {last_detected_location}.")
+            print(f"The camera needs moved: {move_coordinates}.")
+            if args.track:
+                pan(move_x)
+                tilt(move_y)
 
             # Save the image           
             if args.save:
