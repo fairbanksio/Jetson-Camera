@@ -47,6 +47,14 @@ def captureFrames():
 
         with thread_lock:
             video_frame = frame.copy()
+            if args.debug:
+                # Draw a dot center screen
+                center_coordinates = (840, 525)
+                radius = 5
+                center_color = (0, 255, 0)
+                detected_color = (255, 0, 0)
+                thickness = -1
+                cv2.circle(video_frame, center_coordinates, radius, center_color, thickness)
 
         key = cv2.waitKey(30) & 0xff
         if key == 27:
