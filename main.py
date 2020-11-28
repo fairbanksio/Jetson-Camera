@@ -18,6 +18,7 @@ parser.add_argument("--notification-delay", help="Interval in seconds between no
 parser.add_argument("--disable-motion", help="Disable motion detection", action="store_true")
 parser.add_argument("--ptz-test", help="Verify PTZ functionality and range", action="store_true")
 parser.add_argument("--port", help="Web Port", default=8000)
+parser.add_argument("--save", help="Archive detected motion", action="store_true")
 args = parser.parse_args() 
 
 global video_frame
@@ -28,6 +29,8 @@ thread_lock = threading.Lock()
 
 global last_notify_time
 last_notify_time = datetime.now()
+
+global last_detected_location 
 
 HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml"
 #HAAR_CASCADE_XML_FILE = "/usr/share/opencv4/haarcascades/haarcascade_upperbody.xml"
@@ -47,6 +50,14 @@ def captureFrames():
 
         with thread_lock:
             video_frame = frame.copy()
+            if args.debug:
+                # Draw a dot center screen
+                center_coordinates = (840, 525)
+                radius = 5
+                center_color = (0, 255, 0)
+                detected_color = (255, 0, 0)
+                thickness = -1
+                cv2.circle(video_frame, center_coordinates, radius, center_color, thickness)
 
         key = cv2.waitKey(30) & 0xff
         if key == 27:
@@ -55,7 +66,7 @@ def captureFrames():
     video_capture.release()
 
 def detectMotion():
-    global video_frame, last_notify_time
+    global video_frame, last_notify_time, last_detected_location
     cascade = cv2.CascadeClassifier(HAAR_CASCADE_XML_FILE)
     while True:
         global video_frame
@@ -66,24 +77,39 @@ def detectMotion():
         grayscale_image = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
         detected = cascade.detectMultiScale(grayscale_image, 1.3, 5)
 
-        if args.debug:
-            for (x_pos, y_pos, width, height) in detected:
-                cv2.rectangle(video_frame, (x_pos, y_pos), (x_pos + width, y_pos + height), (0, 0, 255), 2)
-        
         # Figure out the timestamp
         date = datetime.now().strftime("%m/%d/%Y")
         time = datetime.now().strftime("%H:%M:%S")
         
         # There's a person in the image
-        if any(map(len, detected)):
+        for (x_pos, y_pos, width, height) in detected:
             someone_here = True
             if args.debug:
-                print(f"[{time}] Motion Detected")
+                detection_center = (int(x_pos + width / 2), int(y_pos + height / 2))
+                print(f"[{time}] Motion Detected @ {detection_center}")
+                last_detected_location = detection_center
+                radius = 10
+                color = (0, 0, 255)
+                thickness = 2
+                with thread_lock:
+                    cv2.circle(video_frame, detection_center, radius, color, thickness)
+
+            # Move to the detection
+            center_coordinates = (840, 525)
+            move_x = int(center_coordinates[0] - last_detected_location[0])
+            move_y = int(center_coordinates[1] - last_detected_location[1])
+            move_coordinates = (move_x, move_y)
+            print(f"Camera is pointed at {center_coordinates} but needs to be pointed at {last_detected_location}.")
+            print(f"The camera needs moved: {move_coordinates}.")
+            if args.track:
+                pan(move_x)
+                tilt(move_y)
 
             # Save the image           
-            filename = 'motion-{}.jpg'.format(datetime.now().strftime("%m%d%Y%H%M%S"))
-            cv2.imwrite(filename, video_frame)
-            cv2.waitKey(0)
+            if args.save:
+                filename = 'motion-{}.jpg'.format(datetime.now().strftime("%m%d%Y%H%M%S"))
+                cv2.imwrite(filename, video_frame)
+                cv2.waitKey(0)
 
             # If there's a Slack token, send a message
             if args.slack_token:
@@ -135,10 +161,10 @@ if __name__ == '__main__':
         print(f"Version: {__version__}")
 
     if args.slack_token:
-        print("\n** Slack Notifications: ENABLED **\n")
+        print("\n** Slack Notifications: ENABLED **")
 
     if args.debug:
-        print("\n** Debug Mode: ENABLED **\n")
+        print("\n** Debug Mode: ENABLED **")
 
     if args.ptz_test:
         print("\n** PTZ Test: ENABLED **\n")
