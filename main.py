@@ -161,10 +161,10 @@ if __name__ == '__main__':
         print(f"Version: {__version__}")
 
     if args.slack_token:
-        print("\n** Slack Notifications: ENABLED **\n")
+        print("\n** Slack Notifications: ENABLED **")
 
     if args.debug:
-        print("\n** Debug Mode: ENABLED **\n")
+        print("\n** Debug Mode: ENABLED **")
 
     if args.ptz_test:
         print("\n** PTZ Test: ENABLED **\n")
