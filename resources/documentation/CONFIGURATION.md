@@ -36,7 +36,7 @@ Used to verify functionality of I2C communication and servos.
 
 `python3 Jetson/jetson-cam/main.py --disable-motion`
 
-Video steam only. Can be used if you do not want motion detection enabled.
+Video stream only. Can be used if you do not want motion detection enabled.
 
 <hr>
 
