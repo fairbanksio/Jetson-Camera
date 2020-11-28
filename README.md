@@ -24,3 +24,7 @@
 - [Troubleshooting](resources/documentation/TROUBLESHOOTING.md)
 - [Additional Resources](resources/documentation/RESOURCES.md)
 - [To-Do List](resources/documentation/TODO.md)
+
+#### Contributing
+
+This code is under active development. If you see something that could be improved upon or done differently, please feel free to open a PR.
