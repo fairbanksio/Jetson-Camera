@@ -2,7 +2,7 @@
 
 Install prerequisites:
 
-`pip3 install opencv-python flask imutils adafruit_servokit`
+`pip3 install opencv-python flask imutils adafruit-circuitpython-servokit`
 
 
 Basic start-up:
