@@ -10,3 +10,4 @@
 - [ ] [Motion frames to Video clips](https://www.geeksforgeeks.org/python-create-video-using-multiple-images-using-opencv/)
 - [ ] [Global args](https://stackoverflow.com/questions/19299635/python-argparse-parse-args-into-global-namespace-or-a-reason-this-is-a-bad-idea)
 - [ ] [Fix KeyboardInterupt](https://github.com/jreese/multiprocessing-keyboardinterrupt/blob/master/example.py)
+- [ ] [Explore JetCam captures](https://github.com/NVIDIA-AI-IOT/jetcam)
